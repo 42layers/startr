@@ -179,7 +179,6 @@ module.exports = function (grunt, init) {
     grunt.loadNpmTasks('grunt-wp-version');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-compress');
-    grunt.loadNpmTasks('grunt-html-validation');
     grunt.loadNpmTasks('grunt-prompt');
 
     // Register tasks
@@ -188,17 +187,11 @@ module.exports = function (grunt, init) {
         'less',
         'cssmin',
         'uglify',
-        'version',
-        'validation'
+        'version'
     ]);
     grunt.registerTask('dev', [
         'watch'
     ]);
-    grunt.registerTask('config',
-        [
-            'prompt:config',
-            'config'
-        ]);
 
     grunt.registerTask('build', ['default', 'copy', 'compress']);
 
