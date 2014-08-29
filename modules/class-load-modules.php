@@ -32,9 +32,8 @@ if (!class_exists("LoadModules")) {
          * @access public
          * @since Method available since Release 1.0.0
          */
-        public function __constructor($first_modules = array())
+        public function __construct($first_modules = array())
         {
-
             /* Setamos os modulos prioritários */
             if (is_array($first_modules))
                 $this->first_modules = $first_modules;
@@ -43,7 +42,7 @@ if (!class_exists("LoadModules")) {
 
             /* Load modulos prioritários */
             foreach ($this->first_modules as $module) {
-                require_once THEME_PATH . "{$module}/modules/module.php";
+                require_once THEME_PATH . "/modules/{$module}/module.php";
             }
 
             /* Carregamos os demais módulos, de acordo com a versão do PHP */

@@ -36,6 +36,14 @@ if (!class_exists("ModuleCanvas")) {
                 'widget' => false,
                 /* Switch: can be either false or the wordkit option to check */
                 'switch' => false,
+                /*
+                 * Isso será usado para custom hook de templates, por exemplo,
+                 * o slider usará o template templates/slider.php,
+                 * que será mostrado no hook theme_slider, para isso, mudariamos o parametro template
+                 * abaixo para array('hook', 'templates/template-name'), no caso
+                 * array('theme_slider', "templates/slider");
+                 */
+                'template' => false
             );
         }
 
@@ -83,7 +91,7 @@ if (!class_exists("ModuleCanvas")) {
             /* Runs */
             $this->run();
             /* After Run */
-            $this>afterRun();
+            $this->afterRun();
         }
 
         /**
@@ -295,6 +303,18 @@ if (!class_exists("ModuleCanvas")) {
                 /* Run Method */
                 add_action('widgets_init', array(&$this, 'widget'), 0);
             }
+
+            /* Template */
+            if ($this->config['template']) {
+                /* Run Method */
+                add_action($this->config['template'][0], array($this, "getTemplate"));
+            }
+        }
+
+        /* Get template */
+        public function getTemplate()
+        {
+            require_once locate_template(array($this->config['template'][1]));
         }
 
         /**
