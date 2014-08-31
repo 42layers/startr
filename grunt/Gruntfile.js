@@ -103,7 +103,7 @@ module.exports = function (grunt, init) {
 
     bumper: {
       options: {
-        //tasks: []
+        tasks: []
       }
     },
 
@@ -275,7 +275,6 @@ module.exports = function (grunt, init) {
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-compress');
     grunt.loadNpmTasks('grunt-bumper');
-    grunt.loadNpmTasks('grunt-push-svn');
     grunt.loadNpmTasks('grunt-contrib-imagemin');
     grunt.loadNpmTasks('grunt-prompt');
     grunt.loadNpmTasks('grunt-rewrite');
