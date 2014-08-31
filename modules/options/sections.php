@@ -165,6 +165,15 @@ $sections[] = array(
         ),
 
         array(
+            'id' => 'pinterest',
+            'type' => 'text',
+            'title' => "Pinterest",
+            'subtitle' => "Link para perfil no Pinterest.",
+            'desc' => "Coloque o link completo, por favor.",
+            'validate'  => 'url'
+        ),
+
+        array(
             'id' => 'google-plus',
             'type' => 'text',
             'title' => "Google Plus",
@@ -172,6 +181,14 @@ $sections[] = array(
             'desc' => "Coloque o link completo, por favor.",
             'validate'  => 'url'
         ),
+
+        array(
+            'id' => 'skype',
+            'type' => 'text',
+            'title' => "Skype",
+            'subtitle' => "Nome no skype."
+        ),
+
     )
 );
 

@@ -18,6 +18,81 @@ module.exports = function (grunt, init) {
       },
     },
 
+    rewrite: {
+      quotes: {
+        src: 'package.json',
+        editor: function(contents, filePath) {
+          contents.replace(/"fullName": (.)*/g, '"fullName": "' + grunt.config('package.name') + '",');
+          contents.replace(/"name": (.)*/g, '"name": "' + grunt.config('package.slug') + '",');
+          contents.replace(/"description": (.)*/g, '"description": "' + grunt.config('package.description') + '",');
+          return true;
+        }
+      }
+    },
+
+    prompt: {
+      target: {
+        options: {
+          questions: [
+            {
+              config: 'package.name', // arbitray name or config for any other grunt task
+              type: 'input', // list, checkbox, confirm, input, password
+              message: 'Qual o nome desse tema? (Nome mesmo, slug será definido em seguida)', // Question to ask the user, function needs to return a string,
+              default: '<%= pkg.fullName %>', // default value if nothing is entered
+              //choices: 'Array|function(answers)',
+              //validate: function(value), // return true if valid, error message if invalid
+              //filter:  function(value), // modify the answer
+              //when: function(answers) // only ask this question when this function returns true
+            },
+
+            {
+              config: 'package.desc', // arbitray name or config for any other grunt task
+              type: 'input', // list, checkbox, confirm, input, password
+              message: 'Descrição do tema', // Question to ask the user, function needs to return a string,
+              default: 'Tema personalizado desenvolvido por Refs Tecnologia.', // default value if nothing is entered
+              //choices: 'Array|function(answers)',
+              //validate: function(value), // return true if valid, error message if invalid
+              //filter:  function(value), // modify the answer
+              //when: function(answers) // only ask this question when this function returns true
+            },
+
+            {
+              config: 'package.slug', // arbitray name or config for any other grunt task
+              type: 'input', // list, checkbox, confirm, input, password
+              message: 'Slug desse tema?', // Question to ask the user, function needs to return a string,
+              default: '<%= pkg.name %>', // default value if nothing is entered
+              //choices: 'Array|function(answers)',
+              //validate: function(value), // return true if valid, error message if invalid
+              //filter:  function(value), // modify the answer
+              //when: function(answers) // only ask this question when this function returns true
+            },
+
+            {
+              config: 'package.svn', // arbitray name or config for any other grunt task
+              type: 'input', // list, checkbox, confirm, input, password
+              message: 'Repositório SVN', // Question to ask the user, function needs to return a string,
+              default: '', // default value if nothing is entered
+              //choices: 'Array|function(answers)',
+              //validate: function(value), // return true if valid, error message if invalid
+              //filter:  function(value), // modify the answer
+              //when: function(answers) // only ask this question when this function returns true
+            }
+          ]
+        }
+      },
+    },
+
+    imagemin: {                          // Task
+      dynamic: {                         // Another target
+        files: [{
+          expand: true,                  // Enable dynamic expansion
+          cwd: '../assets/img/',          // Src matches are relative to this path
+          src: ['*.{png,jpg,gif}'],      // Actual patterns to match
+          dest: '../assets/img/'          // Destination path prefix
+        }]
+      }
+    },
+
     // phplint: {
     //     options: {
     //       swapPath: '/tmp'
@@ -156,21 +231,27 @@ module.exports = function (grunt, init) {
               '../assets/less/*.less',
               '../assets/less/**/*.less',
               ],
-              tasks: ['less', 'cssmin', 'version']
+              tasks: ['less', 'cssmin', 'version'],
+              options: {
+                livereload: true,
+              },
             },
 
             js: {
               files: [
               '<%= jshint.all %>'
               ],
-              tasks: ['jshint', 'uglify', 'version']
+              tasks: ['jshint', 'uglify', 'version'],
+              options: {
+                livereload: true,
+              },
             },
 
             livereload: {
                 // Browser live reloading
                 // https://github.com/gruntjs/grunt-contrib-watch#live-reloading
                 options: {
-                  livereload: false
+                  livereload: true
                 },
                 files: [
                 '../assets/css/main.min.css',
@@ -194,6 +275,9 @@ module.exports = function (grunt, init) {
     grunt.loadNpmTasks('grunt-contrib-compress');
     grunt.loadNpmTasks('grunt-bumper');
     grunt.loadNpmTasks('grunt-push-svn');
+    grunt.loadNpmTasks('grunt-contrib-imagemin');
+    grunt.loadNpmTasks('grunt-prompt');
+    grunt.loadNpmTasks('grunt-rewrite');
 
     // Register tasks
     grunt.registerTask('default', [
@@ -208,6 +292,11 @@ module.exports = function (grunt, init) {
       'watch'
     ]);
 
-    grunt.registerTask('build', ['default', 'copy', 'compress']);
+    grunt.registerTask('start', [
+      'prompt',
+      'rewrite'
+    ]);
+
+    grunt.registerTask('build', ['default', 'imagemin', 'copy', 'compress']);
 
   };
