@@ -10,12 +10,7 @@
 
 <?php
 do_action('get_header');
-// Use Bootstrap's navbar if enabled in config.php
-if (current_theme_supports('bootstrap-top-navbar')) {
-    get_template_part('templates/header-top-navbar');
-} else {
-    get_template_part('templates/header');
-}
+get_template_part('templates/header');
 ?>
 
 <div class="wrap container" role="document">
@@ -26,12 +21,6 @@ if (current_theme_supports('bootstrap-top-navbar')) {
             <!-- CONTENT -->
             <?php include roots_template_path(); ?>
         </main>
-        <!-- /.main -->
-        <?php if (roots_display_sidebar()) : ?>
-            <aside class="sidebar <?php echo roots_sidebar_class(); ?>" role="complementary">
-                <?php include roots_sidebar_path(); ?>
-            </aside><!-- /.sidebar -->
-        <?php endif; ?>
     </div>
     <!-- /.content -->
 </div>

@@ -314,7 +314,7 @@ if (!class_exists("ModuleCanvas")) {
         /* Get template */
         public function getTemplate()
         {
-            require_once locate_template(array($this->config['template'][1]));
+            require_once $this->config['template'][1];
         }
 
         /**

@@ -3,6 +3,7 @@
 /* Path */
 define("THEME_PATH", get_template_directory());
 define("THEME_DIR", get_template_directory_uri());
+define("TEXT_DOMAIN", 'roots');
 
 /* Modules Includes */
 require_once locate_template('/modules/class-load-modules.php');
