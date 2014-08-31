@@ -5,29 +5,30 @@ module.exports = function (grunt, init) {
 
     pkg: grunt.file.readJSON('package.json'),
 
-    push_svn: {
-      options: {
-        remove: false,
-        pushIgnore: ['../**/*.tmp', '../**/node_modules/'],
-        removeIgnore: ['**/*.gif']
-      },
-      main: {
-        src: './../',
-        dest: 'https://svn.example.com/path/to/your/repo',
-        tmp: './.build'
-      },
-    },
-
     rewrite: {
-      quotes: {
+      package: {
         src: 'package.json',
         editor: function(contents, filePath) {
-          contents.replace(/"fullName": (.)*/g, '"fullName": "' + grunt.config('package.name') + '",');
-          contents.replace(/"name": (.)*/g, '"name": "' + grunt.config('package.slug') + '",');
-          contents.replace(/"description": (.)*/g, '"description": "' + grunt.config('package.description') + '",');
-          return true;
+          contents = contents.replace(/"fullName": (.)*/g, '"fullName": "' + grunt.config('package.name') + '",');
+          contents = contents.replace(/"name": (.)*/g, '"name": "' + grunt.config('package.slug') + '",');
+          contents = contents.replace(/"description": (.)*/g, '"description": "' + grunt.config('package.desc') + '",');
+
+          contents = contents.replace(/"url": (.)*/g, '"url": "' + grunt.config('package.svn') + '"');
+
+          return contents;
         }
-      }
+      },
+
+      style: {
+        src: '../style.css',
+        editor: function(contents, filePath) {
+          var version = grunt.config.get('pkg.version');
+          contents = contents.replace(/Theme Name:(.)*/g, 'Theme Name:         ' + grunt.config('package.name'));
+          contents = contents.replace(/Description:(.)*/g, 'Description:        ' + grunt.config('package.desc'));
+          contents = contents.replace(/Version:(.)*/g, 'Version:            ' + version);
+          return contents;
+        }
+      },
     },
 
     prompt: {
@@ -102,7 +103,7 @@ module.exports = function (grunt, init) {
 
     bumper: {
       options: {
-        tasks: ['push_svn']
+        //tasks: []
       }
     },
 
