@@ -294,7 +294,8 @@ module.exports = function (grunt, init) {
 
     grunt.registerTask('start', [
       'prompt',
-      'rewrite'
+      'rewrite',
+      'watch'
     ]);
 
     grunt.registerTask('build', ['default', 'imagemin', 'copy', 'compress']);
