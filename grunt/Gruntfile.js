@@ -194,7 +194,7 @@ module.exports = function (grunt, init) {
             main: {
               src: [
               '**',
-              '!node_modules/**',
+              '!grunt/**',
               '!../release/**',
               '!../.git/**',
               '!../.svn/**',
