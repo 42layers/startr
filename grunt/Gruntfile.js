@@ -103,7 +103,7 @@ module.exports = function (grunt, init) {
 
     bumper: {
       options: {
-        tasks: []
+        tasks: ['rewrite:style']
       }
     },
 
