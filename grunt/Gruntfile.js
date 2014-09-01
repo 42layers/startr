@@ -22,13 +22,21 @@ module.exports = function (grunt, init) {
       style: {
         src: '../style.css',
         editor: function(contents, filePath) {
-          var version = grunt.config.get('pkg.version');
+          
           contents = contents.replace(/Theme Name:(.)*/g, 'Theme Name:         ' + grunt.config('package.name'));
           contents = contents.replace(/Description:(.)*/g, 'Description:        ' + grunt.config('package.desc'));
-          contents = contents.replace(/Version:(.)*/g, 'Version:            ' + version);
           return contents;
         }
       },
+
+      version: {
+        src: '../style.css',
+        editor: function(contents, filePath) {
+          var version = grunt.config.get('pkg.version');
+          contents = contents.replace(/Version:(.)*/g, 'Version:            ' + version);
+          return contents;
+        }
+      }
     },
 
     prompt: {
@@ -103,7 +111,11 @@ module.exports = function (grunt, init) {
 
     bumper: {
       options: {
-        tasks: ['rewrite:style']
+        tasks: ['rewrite:version'],
+        add: false,
+        commit: false,
+        createTag: false,
+        push: false,
       }
     },
 
