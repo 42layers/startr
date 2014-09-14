@@ -91,7 +91,7 @@ module.exports = function (grunt, init) {
               config: 'package.modules', // arbitray name or config for any other grunt task
               type: 'confirm', // list, checkbox, confirm, input, password
               message: 'Deseja selecionar que módulos excluir?', // Question to ask the user, function needs to return a string,
-              //default: '', // default value if nothing is entered
+              default: false, // default value if nothing is entered
               //choices: 'Array|function(answers)',
               //validate: function(value), // return true if valid, error message if invalid
               //filter:  function(value), // modify the answer
@@ -99,7 +99,7 @@ module.exports = function (grunt, init) {
             },
 
             {
-              config: 'package.whichModules', // arbitray name or config for any other grunt task
+              config: 'whichModules', // arbitray name or config for any other grunt task
               type: 'checkbox', // list, checkbox, confirm, input, password
               message: 'Selecione que módulos deseja excluir (OS MARCADOS SERÃO EXCLUIDOS!)', // Question to ask the user, function needs to return a string,
               default: '', // default value if nothing is entered
@@ -109,7 +109,7 @@ module.exports = function (grunt, init) {
 
                 grunt.file.expand({
                   filter: 'isDirectory'
-                }, "./../modules/*").forEach(function (dir) {
+                }, "../modules/*").forEach(function (dir) {
                   choices.push(dir);
                 });
 
@@ -232,14 +232,18 @@ module.exports = function (grunt, init) {
                 options: {
                   force: true,
                 },
+
                 dist: [
                 '../assets/css/main.min.css',
                 '../assets/js/scripts.min.js'
                 ],
+
                 main: ['../release/<%= pkg.version %>'],
 
                 // Modules
-                modules: grunt.config('package.whichModules') || []
+                modules: {
+                  src: ['<%= whichModules %>']
+                }
               },
 
               copy: {
@@ -319,9 +323,12 @@ module.exports = function (grunt, init) {
             }
           });
 
-  grunt.registerTask('show', 'desc', function() {
-    console.log(grunt.config('package.whichModules'));
-  });
+    grunt.registerTask('deleteModules', 'desc', function() {
+      var modules = grunt.config('whichModules');
+      if (typeof modules !== "undefined" && modules.length > 0) {
+        grunt.task.run(['clean:modules']);
+      }
+    });
 
     // Load tasks
     grunt.loadNpmTasks('grunt-contrib-clean');
@@ -354,8 +361,8 @@ module.exports = function (grunt, init) {
     grunt.registerTask('start', [
       'prompt',
       'rewrite',
-      //'show',
-      'clean:modules',
+      'deleteModules',
+      //'clean:modules',
       'watch'
     ]);
 
