@@ -239,7 +239,7 @@ module.exports = function (grunt, init) {
                 main: ['../release/<%= pkg.version %>'],
 
                 // Modules
-                modules: grunt.config('package.whichModules')
+                modules: grunt.config('package.whichModules') || []
               },
 
               copy: {
