@@ -93,6 +93,15 @@ function my_theme_register_required_plugins() {
             'force_deactivation' => false,
         ),
 
+        array(
+            'name' => 'Advanced Custom Fields: Star Rating',
+            'slug' => 'acf-star-rating',
+            'source' => 'acf-field-star-rating-master.zip',
+            'required' => true,
+            'force_activation' => true,
+            'force_deactivation' => false,
+        ),
+
 	);
 
 	// Change this to your theme text domain, used for internationalising strings

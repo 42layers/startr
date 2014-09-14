@@ -94,10 +94,10 @@ if (!class_exists("LoadModules")) {
     function loadmodules()
     {
         /* Setamos módulos prioritários */
-        $modules = array("canvas");
+        $modules = array("canvas", "custom-post-types");
         new LoadModules($modules);
     }
 
     /* Carregamos Módulos */
-    add_action('init', "loadmodules", 0);
+    add_action('after_setup_theme', "loadmodules");
 }
