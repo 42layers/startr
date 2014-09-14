@@ -5,14 +5,15 @@ function get_theme_name() {
   return $theme->name;
 }
 
-function addTaxonomy($name, $type, $slug) {
+function addTaxonomy($name, $type, $slug, $show = null) {
   // create a new taxonomy
   register_taxonomy(
     $slug,
     $type,
     array(
       'label' => $name,
-      'rewrite' => array('slug' => $slug)
+      'rewrite' => array('slug' => $slug),
+      'meta_box_cb' => $show
     )
   );
 }

@@ -204,22 +204,24 @@ module.exports = function (grunt, init) {
               copy: {
             // Copy the plugin to a versioned release directory
             main: {
+              cwd: '../',
+              expand: true,
               src: [
               '**',
               '!grunt/**',
-              '!../release/**',
-              '!../.git/**',
-              '!../.svn/**',
-              '!../.idea/**',
-              '!../.sass-cache/**',
-              '!../assets/less/**',
-              '!../assets/js/plugins/**',
-              '!../assets/js/_*.js',
-              '!../assets/img/src/**',
+              '!release/**',
+              '!.git/**',
+              '!.svn/**',
+              '!.idea/**',
+              '!.sass-cache/**',
+              '!assets/less/**',
+              '!assets/js/plugins/**',
+              '!assets/js/_*.js',
+              '!assets/img/src/**',
               '!Gruntfile.js',
               '!package.json',
-              '!../.gitignore',
-              '!../.gitmodules'
+              '!.gitignore',
+              '!.gitmodules'
               ],
               dest: '../release/<%= pkg.version %>/'
             }

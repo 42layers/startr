@@ -1,0 +1,82 @@
+<?php
+if(function_exists("register_field_group"))
+{
+  register_field_group(array (
+    'id' => 'acf_slides',
+    'title' => 'Slides',
+    'fields' => array (
+      array (
+        'key' => 'field_5415a57e37bc7',
+        'label' => 'Imagem',
+        'name' => 'imagem',
+        'type' => 'image',
+        'instructions' => 'Selecione a imagem que aparecerá nesse Slide.',
+        'required' => 1,
+        'save_format' => 'object',
+        'preview_size' => 'medium',
+        'library' => 'all',
+      ),
+      array (
+        'key' => 'field_5415a5b237bc8',
+        'label' => 'Que Slider?',
+        'name' => 'slider',
+        'type' => 'taxonomy',
+        'instructions' => 'Selecione a que Slider esse slide pertence.',
+        'required' => 1,
+        'taxonomy' => 'slider',
+        'field_type' => 'checkbox',
+        'allow_null' => 0,
+        'load_save_terms' => 0,
+        'return_format' => 'id',
+        'multiple' => 0,
+      ),
+      array (
+        'key' => 'field_5415a61237bc9',
+        'label' => 'Ordem',
+        'name' => 'ordem',
+        'type' => 'number',
+        'instructions' => 'Selecione em que posição esse slide deve aparecer.',
+        'required' => 1,
+        'default_value' => 0,
+        'placeholder' => '',
+        'prepend' => '',
+        'append' => '',
+        'min' => 0,
+        'max' => '',
+        'step' => 1,
+      ),
+    ),
+    'location' => array (
+      array (
+        array (
+          'param' => 'post_type',
+          'operator' => '==',
+          'value' => $this->name,
+          'order_no' => 0,
+          'group_no' => 0,
+        ),
+      ),
+    ),
+    'options' => array (
+      'position' => 'normal',
+      'layout' => 'default',
+      'hide_on_screen' => array (
+        0 => 'permalink',
+        1 => 'the_content',
+        2 => 'excerpt',
+        3 => 'custom_fields',
+        4 => 'discussion',
+        5 => 'comments',
+        6 => 'revisions',
+        7 => 'slug',
+        8 => 'author',
+        9 => 'format',
+        10 => 'featured_image',
+        11 => 'categories',
+        12 => 'tags',
+        13 => 'send-trackbacks',
+      ),
+    ),
+    'menu_order' => 0,
+  ));
+}
