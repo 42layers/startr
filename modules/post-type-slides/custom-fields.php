@@ -8,7 +8,7 @@ if(function_exists("register_field_group"))
       array (
         'key' => 'field_5415a57e37bc7',
         'label' => 'Imagem',
-        'name' => 'imagem',
+        'name' => 'slide_imagem',
         'type' => 'image',
         'instructions' => 'Selecione a imagem que aparecerá nesse Slide.',
         'required' => 1,
@@ -19,7 +19,7 @@ if(function_exists("register_field_group"))
       array (
         'key' => 'field_5415a5b237bc8',
         'label' => 'Que Slider?',
-        'name' => 'slider',
+        'name' => 'slide_slider',
         'type' => 'taxonomy',
         'instructions' => 'Selecione a que Slider esse slide pertence.',
         'required' => 1,
@@ -33,7 +33,7 @@ if(function_exists("register_field_group"))
       array (
         'key' => 'field_5415a61237bc9',
         'label' => 'Ordem',
-        'name' => 'ordem',
+        'name' => 'slide_ordem',
         'type' => 'number',
         'instructions' => 'Selecione em que posição esse slide deve aparecer.',
         'required' => 1,
