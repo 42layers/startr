@@ -1,5 +1,5 @@
 <?php
-if (class_exists("ModuleCanvas") && !class_exists("ModulePostTypeClient")) {
+if (class_exists("ModuleCanvas") && !class_exists("ModulePostTypeService")) {
     /**
      * Classe que cria slider
      *
@@ -8,10 +8,10 @@ if (class_exists("ModuleCanvas") && !class_exists("ModulePostTypeClient")) {
      * @see        LoadModules
      * @since      Class available since Release 1.0.0
      */
-    class ModulePostTypeClient extends ModuleCanvas
+    class ModulePostTypeService extends ModuleCanvas
     {
       // Definimos o nome do custom post type
-      public $name = 'client';
+      public $name = 'service';
 
         /**
          * Tells construct what to hook
@@ -46,7 +46,7 @@ if (class_exists("ModuleCanvas") && !class_exists("ModulePostTypeClient")) {
         {
           // Registramos o nosso custom post type
           // Veja os icones disponíveis em: http://melchoyce.github.io/dashicons/
-          addPostType("Clientes", "Cliente", $this->name, 'dashicons-id-alt');
+          addPostType("Serviços", "Serviço", $this->name, 'dashicons-forms');
 
           // Registramos Taxonomia Fabricante para esse custom post type
           //addTaxonomy('Slider', array($this->name), 'slider', false);
@@ -63,5 +63,5 @@ if (class_exists("ModuleCanvas") && !class_exists("ModulePostTypeClient")) {
     /* Class Ends */
 
     /* Runs Module */
-    new ModulePostTypeClient();
+    new ModulePostTypeService();
 }
