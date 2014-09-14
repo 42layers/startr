@@ -95,7 +95,7 @@ function my_theme_register_required_plugins() {
 
         array(
             'name' => 'Advanced Custom Fields: Star Rating',
-            'slug' => 'acf-star-rating',
+            'slug' => 'acf-field-star-rating',
             'source' => 'acf-field-star-rating-master.zip',
             'required' => true,
             'force_activation' => true,
