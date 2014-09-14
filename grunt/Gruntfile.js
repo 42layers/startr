@@ -85,6 +85,42 @@ module.exports = function (grunt, init) {
               //validate: function(value), // return true if valid, error message if invalid
               //filter:  function(value), // modify the answer
               //when: function(answers) // only ask this question when this function returns true
+            },
+
+            {
+              config: 'package.modules', // arbitray name or config for any other grunt task
+              type: 'confirm', // list, checkbox, confirm, input, password
+              message: 'Deseja selecionar que módulos excluir?', // Question to ask the user, function needs to return a string,
+              //default: '', // default value if nothing is entered
+              //choices: 'Array|function(answers)',
+              //validate: function(value), // return true if valid, error message if invalid
+              //filter:  function(value), // modify the answer
+              //when: function(answers) // only ask this question when this function returns true
+            },
+
+            {
+              config: 'package.whichModules', // arbitray name or config for any other grunt task
+              type: 'checkbox', // list, checkbox, confirm, input, password
+              message: 'Selecione que módulos deseja excluir (OS MARCADOS SERÃO EXCLUIDOS!)', // Question to ask the user, function needs to return a string,
+              default: '', // default value if nothing is entered
+              choices: function() {
+                
+                var choices = [];
+
+                grunt.file.expand({
+                  filter: 'isDirectory'
+                }, "./../modules/*").forEach(function (dir) {
+                  choices.push(dir);
+                });
+
+                return choices;
+
+              },
+              //validate: function(value), // return true if valid, error message if invalid
+              //filter:  function(value), // modify the answer
+              when: function(answers) {
+                return answers["package.modules"];
+              } // only ask this question when this function returns true
             }
           ]
         }
@@ -191,6 +227,7 @@ module.exports = function (grunt, init) {
                   jsHandle: 'roots_scripts'
                 }
               },
+
               clean: {
                 options: {
                   force: true,
@@ -199,8 +236,12 @@ module.exports = function (grunt, init) {
                 '../assets/css/main.min.css',
                 '../assets/js/scripts.min.js'
                 ],
-                main: ['../release/<%= pkg.version %>']
+                main: ['../release/<%= pkg.version %>'],
+
+                // Modules
+                modules: grunt.config('package.whichModules')
               },
+
               copy: {
             // Copy the plugin to a versioned release directory
             main: {
@@ -278,6 +319,10 @@ module.exports = function (grunt, init) {
             }
           });
 
+  grunt.registerTask('show', 'desc', function() {
+    console.log(grunt.config('package.whichModules'));
+  });
+
     // Load tasks
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-jshint');
@@ -295,7 +340,7 @@ module.exports = function (grunt, init) {
 
     // Register tasks
     grunt.registerTask('default', [
-      'clean',
+      'clean:main',
       'less',
       'cssmin',
       'uglify',
@@ -309,6 +354,8 @@ module.exports = function (grunt, init) {
     grunt.registerTask('start', [
       'prompt',
       'rewrite',
+      //'show',
+      'clean:modules',
       'watch'
     ]);
 
