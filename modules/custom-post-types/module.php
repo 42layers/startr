@@ -67,7 +67,8 @@ function addPostType($nome, $singular, $tipo, $icon, $supports = false) {
     'menu_position' => null,
     'menu_icon' => $icon,
     'supports' => $supports,    
-    'taxonomies' => array('')
+    'taxonomies' => array(''),
+    'has_archive' => true
   );
 
   register_post_type($tipo, $args);
