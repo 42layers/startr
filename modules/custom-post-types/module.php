@@ -5,7 +5,7 @@ function get_theme_name() {
   return $theme->name;
 }
 
-function addTaxonomy($name, $type, $slug, $show = null) {
+function addTaxonomy($name, $type, $slug) {
   // create a new taxonomy
   register_taxonomy(
     $slug,
@@ -13,7 +13,9 @@ function addTaxonomy($name, $type, $slug, $show = null) {
     array(
       'label' => $name,
       'rewrite' => array('slug' => $slug),
-      'meta_box_cb' => $show
+      //'meta_box_cb' => $show,
+      'show_admin_column' => true,
+      'hierarchical'      => true,
     )
   );
 }
@@ -62,17 +64,14 @@ function addPostType($nome, $singular, $tipo, $icon, $supports = false) {
     'show_ui' => true,
     'query_var' => true,
     'capability_type' => 'post',
-    'rewrite' => array ('slug' => 'pt-' . $tipo),
-    'hierarchical' => true, 
-    'menu_position' => null,
+    //'rewrite' => array ('slug' => 'pt-' . $tipo),
     'menu_icon' => $icon,
     'supports' => $supports,    
-    'taxonomies' => array(''),
+    //'taxonomies' => array('slider'),
     'has_archive' => true
   );
 
   register_post_type($tipo, $args);
   flush_rewrite_rules();
-
 }
 ?>
