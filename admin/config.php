@@ -19,7 +19,7 @@ $args = array(
     'menu_title'			=> $theme->get('Name'),
     'page'		 	 		=> $theme->get('Name'),
     'google_api_key'   	 	=> 'AIzaSyBDmSLNoNF5Tk1zRUy6ZJMVlB58amxjFVQ', // Must be defined to add google fonts to the typography module
-    'global_variable'    	=> 'theme_options', // Set a different name for your global variable other than the opt_name
+    'global_variable'    	=> 'Options', // Set a different name for your global variable other than the opt_name
     'dev_mode'           	=> false, // Show the time the page took to load, etc
     'customizer'         	=> false, // Enable basic customizer support
 
@@ -54,22 +54,6 @@ $args = array(
     //'help_tabs'          	=> array(),
     //'help_sidebar'       	=> '', // __( '', $args['domain'] );
 );
-
-
-// SOCIAL ICONS -> Setup custom links in the footer for quick links in your panel footer icons.
-/*$args['share_icons'][] = array(
-    'url' => 'https://github.com/ReduxFramework/42layers',
-    'title' => 'Visit us on GitHub',
-    'icon' => 'el-icon-github'
-    // 'img' => '', // You can use icon OR img. IMG needs to be a full URL.
-);*/
-
-
-
-/*
- * Adding INJECTED fields to the arguments
- */
-$args = apply_filters("inject_redux_configs", $args);
 
 /*
  * Pass $sections back to the class
