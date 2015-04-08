@@ -1,65 +1,70 @@
 <?php
-if (class_exists("ModuleCanvas") && !class_exists("ModuleSlider")) {
-    /**
-     * Classe que cria slider
-     *
-     * @category   Modules
-     * @version    Release: 1.0.0
-     * @see        LoadModules
-     * @since      Class available since Release 1.0.0
-     */
-    class ModuleSlider extends ModuleCanvas
-    {
-        /**
-         * Tells construct what to hook
-         *
-         * @return array
-         *
-         * @access public
-         * @since Method available since Release 1.0.0
-         */
-        public function config()
-        {
-            return array(
-                'redux' => true,
-                'scripts' => true,
-                'adminScripts' => false,
-                'shortcode' => false,
-                'widget' => false,
-                'switch' => false,
-                'template' => array('theme_slider', THEME_PATH . "/modules/slider/templates/slider.php")
-            );
-        }
 
-        /**
-         * Contains JS & CSS scripts to be enqueue in the theme's frontend
-         *
-         * @return null
-         *
-         * @access public
-         * @since Method available since Release 1.0.0
-         */
-        public function scripts()
-        {
-            wp_enqueue_script('swiper', THEME_DIR . "/modules/slider/assets/idangerous.swiper.min.js", false, "2.6.0", true);
-            wp_enqueue_style('swiper', THEME_DIR . "/modules/slider/assets/idangerous.swiper.css", false, "2.6.0");
-        }
+// Checamos se o modulo já existe
+if (!class_exists('StartrSlider')) :
 
-        /**
-         * Injects new Settings
-         *
-         * @return null
-         *
-         * @access public
-         * @since Method available since Release 1.0.0
-         */
-        public function reduxInjectSections($sections)
-        {
-            return $sections;
-        }
-    }
-    /* Class Ends */
-
-    /* Runs Module */
-    new ModuleSlider();
+class StartrSlider {
+  
+  /**
+   * Inicio do Modulo
+   * Use o construct para adicionar todos os hook que envolvem o modulo, e abaixo adicione os metodos,
+   * preferencialmente por ordem de declaração no __construct
+   * @return null
+   */
+  public function __construct() {
+    
+    // Adiciona os Scripts no frontend
+    add_action('wp_enqueue_scripts', array($this, 'frontendScripts'));
+    
+    // Criamos slider post type, para podermos escolher tudo
+    add_action('init', array($this, 'addSliderPostType'));
+    
+  }
+  
+  /**
+   * Adiciona os JS e CSSs no frontend
+   * @return null
+   */
+  public function frontendScripts() {
+    global $Tema;
+    
+    // Adiciona os scripts
+    wp_enqueue_script('startr-slider-js', $Tema->URL('modules/slider/assets/idangerous.swiper.min.js'));
+    
+    // Adicionamos o CSS também
+    wp_enqueue_style('startr-slider-css', $Tema->URL('modules/slider/assets/idangerous.swiper.css'));
+    
+  }
+  
+  /**
+   * Criamos nosso novo custom post type
+   * @return null
+   */
+  public function addSliderPostType() {
+    global $Tema;
+    
+    // Labels 
+    $labels = array(
+      'name'          => __('Sliders', $Tema->textDomain),
+      'singular_name' => __('Slider', $Tema->textDomain)
+    );
+      
+    // Criamos nosso post type slider, para criamos os sliders do projeto
+    register_post_type('slider', array(
+      'labels'      => $labels,
+      'menu_icon'   => 'dashicons-images-alt'
+      'public'      => true,
+      'has_archive' => false,
+      'publicly_queryable' => false,
+      )
+    );
+    
+  }
+  
 }
+
+// Rodamos o Modulo
+new StartrSlider;
+
+// Check da classe
+endif;

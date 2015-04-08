@@ -97,7 +97,7 @@ if (!class_exists("LoadModules")) {
   function loadmodules() {
     
     /* Setamos módulos prioritários */
-    $modules = array("canvas", "custom-post-types");
+    $modules = array();
     new LoadModules($modules);
     
   }

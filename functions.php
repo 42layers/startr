@@ -30,7 +30,7 @@ require_once locate_template('/framework/startr.php');
 require_once locate_template('/admin/admin.php');
 
 /** Carregamos nossos Modulos */
-// require_once locate_template('/framework/load-modules.php');
+require_once locate_template('/framework/load-modules.php');
 
 /**
  * Criamos nossa classe que cuidará desse tema, extendendo nossa framework
@@ -71,6 +71,17 @@ class TemaPersonalizado extends StartrCore {
   public function addOns() {
     // Exemplo
     // require $this->path('inc/arquivo-do-custom-field.php');
+  }
+  
+  /**
+   * Use a função abaixo para adicionar novos menus ou sidebars
+   */
+  public function themeMenus() {
+    // Register wp_nav_menu() menus (http://codex.wordpress.org/Function_Reference/register_nav_menus)
+    register_nav_menus(array(
+      'main_menu'   => __('Menu principal', $this->textDomain),
+      'footer_menu' => __('Menu do Rodapé', $this->textDomain)
+    ));
   }
   
 }

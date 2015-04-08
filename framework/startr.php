@@ -58,10 +58,10 @@ class StartrCore {
   public function __construct() {
     
     // Setamos a URL do tema
-    $this->path = get_template_directory();
+    $this->path = get_template_directory().'/';
     
     // Setamos a URL do tema
-    $this->url = get_template_directory_uri();
+    $this->url = get_template_directory_uri().'/';
     
     // Adicionamos o TGM, para usarmos para requirir plugins depois
     require_once locate_template('inc/tgm.php');
