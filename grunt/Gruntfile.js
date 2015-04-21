@@ -36,7 +36,16 @@ module.exports = function (grunt, init) {
           contents = contents.replace(/Version:(.)*/g, 'Version:            ' + version);
           return contents;
         }
+      },
+      
+      debug: {
+        src: '../release/' + grunt.config.get('pkg.version') + '/functions.php',
+        editor: function(contents, filePath) {
+          contents = contents.replace(/public \$dev = true;/g, 'public $dev = false;');
+          return contents;
+        }
       }
+      
     },
 
     prompt: {
@@ -366,6 +375,12 @@ module.exports = function (grunt, init) {
       'watch'
     ]);
 
-    grunt.registerTask('build', ['default', 'imagemin', 'copy', 'compress']);
+    grunt.registerTask('build', [
+      'default',
+      'imagemin',
+      'copy',
+      'rewrite:debug',
+      'compress'
+    ]);
 
   };

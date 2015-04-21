@@ -29,9 +29,6 @@ require_once locate_template('/framework/startr.php');
 /** Carregamos nosso Admin Panel, usando Redux */
 require_once locate_template('/admin/admin.php');
 
-/** Carregamos nossos Modulos */
-require_once locate_template('/framework/load-modules.php');
-
 /**
  * Criamos nossa classe que cuidará desse tema, extendendo nossa framework
  * Para mais detalhes sobre como cada um dos metodos funciona, veja framework/startr.php
@@ -39,10 +36,15 @@ require_once locate_template('/framework/load-modules.php');
 class TemaPersonalizado extends StartrCore {
   
   /**
+   * Seta se estamos em modo DEV. Grunt muda pra production sozinho, no build 
+   */
+  public $dev = true;
+  
+  /**
    * Carregamos alguns arquivos importantes que o Roots coloca
    */
   public function __construct() {
-    
+
     /** 
      * Importante: Rodamos o código da framework (nossa classe pai)
      * (para mais informações, veja o mesmo método em framework/startr.php)
@@ -91,3 +93,6 @@ $Tema = new TemaPersonalizado;
 
 /** Tornamos a variavel global para que possamos usar alguns de seus metodos e propriedades em outros locais */
 global $Tema;
+
+/** Carregamos nossos Modulos */
+require_once locate_template('/framework/load-modules.php');

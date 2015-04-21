@@ -72,7 +72,7 @@ if (!class_exists("LoadModules")) {
       $regex = new RegexIterator($recIterator, '/\/module.php$/i');
 
       foreach ($regex as $item) {
-        require_once $item->getPathname();
+        include $item->getPathname();
       }
     }
 
@@ -88,7 +88,7 @@ if (!class_exists("LoadModules")) {
       global $Tema;
       
       foreach (glob($Tema->path.'/modules/*/module.php') as $module) {
-        require_once $module;
+        include $module;
       }
     }
   }
@@ -103,5 +103,6 @@ if (!class_exists("LoadModules")) {
   }
 
   /* Carregamos Módulos */
-  add_action('after_setup_theme', "loadmodules");
+  //loadmodules();
+  add_action('init', "loadmodules");
 }
