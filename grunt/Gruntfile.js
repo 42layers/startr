@@ -39,8 +39,9 @@ module.exports = function (grunt, init) {
       },
       
       debug: {
-        src: '../release/' + grunt.config.get('pkg.version') + '/functions.php',
+        src: '../release/<%= pkg.version %>/functions.php',
         editor: function(contents, filePath) {
+          console.log('../release/' + grunt.config.get('pkg.version') + '/functions.php');
           contents = contents.replace(/public \$dev = true;/g, 'public $dev = false;');
           return contents;
         }
