@@ -213,6 +213,91 @@ class StartrCore {
     tgmpa($this->dependencies);
   }
   
+  /**
+   * Adicionamos CPTs usando essa função helper.
+   * @param string $name Nome PLURAL do Custom Post Type.
+   * @param string $singular Nome singular desse CPT.
+   * @param string $slug Slug/ID desse CPT.
+   * @param string $icon Dashicon desse post type.
+   * @param string/bool $supports False se quiser user o support padrão, array com a support que quiser.
+   */
+  public function addPostType($nome, $singular, $slug, $icon, $supports = false) {
+    
+    // Labels
+    $labels = array (
+      'name'               => __($nome, $this->textDomain),
+      'singular_name'      => __($singular, $this->textDomain),
+      'add_new'            => __('Novo', $this->textDomain),
+      'add_new_item'       => __('Novo ' . $singular, $this->textDomain),
+      'edit_item'          => __('Editar ' . $singular, $this->textDomain),    
+      'new_item'           => __('Novo ' . $singular, $this->textDomain),
+      'all_items'          => __('Todos os ' . $nome, $this->textDomain),
+      'view_item'          => __('Ver este ' . $singular, $this->textDomain),
+      'search_items'       => __('Buscar ' . $nome, $this->textDomain),
+      'not_found'          => __('Novo ' . $nome, $this->textDomain),
+      'not_found_in_trash' => __('No ' . $nome . ' in Trash', $this->textDomain),
+      'menu_name'          => __($nome, $this->textDomain),
+      'parent_item_colon'  => '',
+    );
+    
+    /* If Supports */
+    if(!$supports) {
+      $supports = array (
+        'title', 'editor', 'thumbnail', 'revisions',
+        //'author',
+        //'excerpt',
+        //'comments',
+        //'trackbacks',
+      );
+    }
+    
+    // Argumentos
+    $args = array (
+      'capability_type'     => 'post',
+      'post_tag'            => false,
+      'public'              => true,
+      'exclude_from_search' => false,
+      'publicly_queryable'  => true,
+      'show_ui'             => true,
+      'query_var'           => true,
+      'has_archive'         => true,
+      'menu_icon'           => $icon,
+      'supports'            => $supports,
+      'labels'              => $labels,
+      //'rewrite'           => array ('slug' => 'pt-' . $tipo),   
+      //'taxonomies'        => array('slider'),
+    );
+    
+    // Registra efetivamente o CPT
+    register_post_type($slug, $args);
+    
+    // Limpa as regras de rwrite
+    flush_rewrite_rules();
+    
+  }
+  
+  
+  /**
+   * Adicionamos taxonomias a um post type específico.
+   * @param string $name Nome da taxonomia.
+   * @param string/array $type Custom Post type ao qual essa taxonomia se aplicará.
+   * @param string $slug Slug dessa taxonomia.
+   */
+  public function addTaxonomy($name, $type, $slug) {
+    // Registramos nossa nova taxonomia
+    register_taxonomy(
+      $slug,
+      $type,
+      array(
+        'label' => $name,
+        'rewrite' => array('slug' => $slug),
+        //'meta_box_cb' => $show,
+        'show_admin_column' => true,
+        'hierarchical'      => true,
+      )
+    );
+  }
+  
 }
 
 // Fim do if
