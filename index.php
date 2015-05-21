@@ -20,7 +20,7 @@
   </nav>
 <?php endif; ?>
 
-<?php do_shortcode('[startr_slider id="home" post_type="page,post"]') ?>
+<?php do_shortcode('[startr_slider id="home" post_type="slide"]') ?>
 <?php do_shortcode('[startr_social id="home" social="facebook"]') ?>
 <?php do_shortcode('[startr_endereco id="1"]') ?>
 <?php do_shortcode('[startr_tel id="tel" qtd="2"]') ?>

@@ -44,7 +44,8 @@
 <script>
   var swiper = new Swiper('#slider-<?php echo $sliderID; ?>', {
       pagination: '.slider-<?php echo $sliderID; ?>-pagination',
-      paginationClickable: true
+      paginationClickable: true,
+      autoplay: 3000
   });
 </script>
 
