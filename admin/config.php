@@ -24,7 +24,7 @@ $args = array(
     'customizer'         	=> false, // Enable basic customizer support
 
     // OPTIONAL -> Give you extra features
-    'page_priority'      	=> 53.3, // Order where the menu appears in the admin area. If there is any conflict, something will not show. Warning.
+    'page_priority'      	=> 3.3543, // Order where the menu appears in the admin area. If there is any conflict, something will not show. Warning.
     //'page_parent'        	=> 'themes.php', // For a full list of options, visit: http://codex.wordpress.org/Function_Reference/add_submenu_page#Parameters
     'page_permissions'   	=> 'manage_options', // Permissions needed to access the options panel.
     //'menu_icon'          	=> 'dashicons dashicons-art', // Specify a custom URL to an icon
